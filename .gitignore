@@ -1,0 +1,16 @@
+# Environments
+venv/
+.env
+
+# Dependências instaladas (caso use um ambiente virtual, isso já é desnecessário)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos gerados pelo PyCharm
+*.iml
+/.idea/
+
+logs/
+
