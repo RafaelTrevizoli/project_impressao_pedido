@@ -1,154 +1,160 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Pedido de Venda Nº {{ numero }}</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <title>Pedido de Venda Nº {{ numero }}</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      margin: 40px;
-      color: #000;
-    }
+        @page {
+            size: A4;
+            margin: 0; /* remove todas as margens do PDF */
+        }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin: 0; /* importante para evitar margem dupla */
+            padding: 1px; /* você controla o "respiro" manualmente */
+            color: #000;
+        }
 
-    .header-title {
-      font-size: 18px;
-      font-weight: bold;
-    }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
 
-    .qr-code img {
-      width: 120px;
-      height: 120px;
-      display: block;
-    }
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-    .table-box,
-    .products-table,
-    .footer-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 25px;
-    }
+        .qr-code img {
+            width: 120px;
+            height: 120px;
+            display: block;
+        }
 
-    .table-box td,
-    .table-box th,
-    .products-table td,
-    .products-table th,
-    .footer-table td,
-    .footer-table th {
-      border: 1px solid #000;
-      padding: 8px 10px;
-      font-size: 13px;
-    }
+        .table-box,
+        .products-table,
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
 
-    .products-table th,
-    .table-box th {
-      background-color: #f2f2f2;
-      text-align: left;
-    }
+        .table-box td,
+        .table-box th,
+        .products-table td,
+        .products-table th,
+        .footer-table td,
+        .footer-table th {
+            border: 1px solid #000;
+            padding: 8px 10px;
+            font-size: 13px;
+        }
 
-    .info-table {
-      width: 100%;
-    }
+        .products-table th,
+        .table-box th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
 
-    .info-table td {
-      padding: 6px 10px;
-    }
+        .info-table {
+            width: 100%;
+        }
 
-    .products-table td {
-      vertical-align: top;
-    }
+        .info-table td {
+            padding: 6px 10px;
+        }
 
-    .products-table th {
-      text-align: left;
-    }
+        .products-table td {
+            vertical-align: top;
+        }
 
-    .footer-table td {
-      vertical-align: top;
-    }
+        .products-table th {
+            text-align: left;
+        }
 
-    @media print {
-      body {
-        margin: 10mm;
-      }
+        .footer-table td {
+            vertical-align: top;
+        }
 
-      .qr-code img {
-        width: 100px;
-        height: 100px;
-      }
-    }
-  </style>
+        @media print {
+            body {
+                margin: 10mm;
+            }
+
+            .qr-code img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="header">
+<div class="header">
     <div class="header-title">Pedido de Venda Nº {{ numero }}</div>
     <div class="qr-code">
-      <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+        <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
     </div>
-  </div>
+</div>
 
-  <table class="table-box info-table">
+<table class="table-box info-table">
     <tr>
-      <td><strong>Cliente:</strong></td>
-      <td>{{ cliente }}</td>
-      <td><strong>Data de Faturamento:</strong></td>
-      <td>{{ data_faturamento }}</td>
+        <td><strong>Cliente:</strong></td>
+        <td>{{ cliente }}</td>
+        <td><strong>Data de Faturamento:</strong></td>
+        <td>{{ data_faturamento }}</td>
     </tr>
     <tr>
-      <td><strong>Setor:</strong></td>
-      <td>{{ setor }}</td>
-      <td><strong>Marketplace:</strong></td>
-      <td>{{ marketplace }}</td>
+        <td><strong>Setor:</strong></td>
+        <td>{{ setor }}</td>
+        <td><strong>Marketplace:</strong></td>
+        <td>{{ marketplace }}</td>
     </tr>
-  </table>
+</table>
 
-  <table class="products-table">
+<table class="products-table">
     <thead>
-      <tr>
+    <tr>
         <th>Item</th>
         <th>SKU</th>
         <th>Qtd</th>
         <th>Un</th>
-      </tr>
+    </tr>
     </thead>
     <tbody>
-      {% for item in produtos %}
+    {% for item in produtos %}
         <tr>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.sku }}</td>
-          <td style="text-align: center;">{{ item.quantidade }}</td>
-          <td style="text-align: center;">{{ item.unidade }}</td>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.sku }}</td>
+            <td style="text-align: center;">{{ item.quantidade }}</td>
+            <td style="text-align: center;">{{ item.unidade }}</td>
         </tr>
-      {% endfor %}
+    {% endfor %}
     </tbody>
-  </table>
+</table>
 
-  <table class="footer-table">
+<table class="footer-table">
     <tr>
-      <td><strong>Número de Volumes:</strong></td>
-      <td>{{ volumes }}</td>
+        <td><strong>Número de Volumes:</strong></td>
+        <td>{{ volumes }}</td>
     </tr>
     <tr>
-      <td><strong>Soma das Quantidades:</strong></td>
-      <td>{{ soma_quantidades }}</td>
+        <td><strong>Soma das Quantidades:</strong></td>
+        <td>{{ soma_quantidades }}</td>
     </tr>
     <tr>
-      <td><strong>Observação:</strong></td>
-      <td>{{ observacao }}</td>
+        <td><strong>Observação:</strong></td>
+        <td>{{ observacao }}</td>
     </tr>
-  </table>
+</table>
 
 </body>
 </html>
