@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import imprimir_pedido_por_setor
+from .views import ImprimirPedidoView
 
 urlpatterns = [
-    path('imprimir/', imprimir_pedido_por_setor),
+    path('api/imprimir/', ImprimirPedidoView.as_view()),
 ]
