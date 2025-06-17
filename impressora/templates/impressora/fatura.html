@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedido de Venda Nº {{ numero }}</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      margin: 40px;
+      color: #000;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .qr-code img {
+      width: 120px;
+      height: 120px;
+      display: block;
+    }
+
+    .table-box,
+    .products-table,
+    .footer-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+    }
+
+    .table-box td,
+    .table-box th,
+    .products-table td,
+    .products-table th,
+    .footer-table td,
+    .footer-table th {
+      border: 1px solid #000;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .products-table th,
+    .table-box th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+
+    .info-table {
+      width: 100%;
+    }
+
+    .info-table td {
+      padding: 6px 10px;
+    }
+
+    .products-table td {
+      vertical-align: top;
+    }
+
+    .products-table th {
+      text-align: left;
+    }
+
+    .footer-table td {
+      vertical-align: top;
+    }
+
+    @media print {
+      body {
+        margin: 10mm;
+      }
+
+      .qr-code img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-title">Pedido de Venda Nº {{ numero }}</div>
+    <div class="qr-code">
+      <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+    </div>
+  </div>
+
+  <table class="table-box info-table">
+    <tr>
+      <td><strong>Cliente:</strong></td>
+      <td>{{ cliente }}</td>
+      <td><strong>Data de Faturamento:</strong></td>
+      <td>{{ data_faturamento }}</td>
+    </tr>
+    <tr>
+      <td><strong>Setor:</strong></td>
+      <td>{{ setor }}</td>
+      <td><strong>Marketplace:</strong></td>
+      <td>{{ marketplace }}</td>
+    </tr>
+  </table>
+
+  <table class="products-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>SKU</th>
+        <th>Qtd</th>
+        <th>Un</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in produtos %}
+        <tr>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.sku }}</td>
+          <td style="text-align: center;">{{ item.quantidade }}</td>
+          <td style="text-align: center;">{{ item.unidade }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="footer-table">
+    <tr>
+      <td><strong>Número de Volumes:</strong></td>
+      <td>{{ volumes }}</td>
+    </tr>
+    <tr>
+      <td><strong>Soma das Quantidades:</strong></td>
+      <td>{{ soma_quantidades }}</td>
+    </tr>
+    <tr>
+      <td><strong>Observação:</strong></td>
+      <td>{{ observacao }}</td>
+    </tr>
+  </table>
+
+</body>
+</html>
