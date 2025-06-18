@@ -10,14 +10,14 @@
 
         @page {
             size: A4;
-            margin: 0; /* remove todas as margens do PDF */
+            margin: 0;
         }
 
         body {
             font-family: Arial, sans-serif;
             font-size: 14px;
-            margin: 0; /* importante para evitar margem dupla */
-            padding: 1px; /* você controla o "respiro" manualmente */
+            margin: 0;
+            padding: 1px;
             color: #000;
         }
 
@@ -33,10 +33,16 @@
             font-weight: bold;
         }
 
-        .qr-code img {
+        .header-logos {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-logos img {
             width: 120px;
             height: 120px;
-            display: block;
+            object-fit: contain;
+            border: 1px solid #ddd;
         }
 
         .table-box,
@@ -89,7 +95,7 @@
                 margin: 10mm;
             }
 
-            .qr-code img {
+            .header-logos img {
                 width: 100px;
                 height: 100px;
             }
@@ -100,7 +106,10 @@
 
 <div class="header">
     <div class="header-title">Pedido de Venda Nº {{ numero }}</div>
-    <div class="qr-code">
+    <div class="header-logos">
+        {% if marketplace_logo %}
+            <img src="{{ marketplace_logo }}" alt="Marketplace">
+        {% endif %}
         <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
     </div>
 </div>
